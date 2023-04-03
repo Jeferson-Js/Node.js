@@ -6,23 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo list</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- Phospor icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
   <body>
-    <form action="/create" method="post">
-      <input
-        type="text"
-        name="task"
-        id="task"
-        placeholder="Digite uma tarefa..."
-      />
-      <button type="submit" id="addButton">Adicionar</button>
-    </form>
+    <header>
+      <% if(task == null) { %>
+      <form action="/create" method="post">
+        <input
+          type="text"
+          name="task"
+          id="task"
+          placeholder="Digite uma tarefa..."
+        />
+        <button type="submit" id="addButton">Adicionar</button>
+      </form>
+      <% } else { %>
+      <form action="/updateOne/<%= task.id%>" method="post">
+        <input type="text" name="task" id="task" value="<%= task.task%>" />
+        <button type="submit" id="addButton">Atualizar</button>
+      </form>
+      <% } %>
+    </header>
 
-    <ul>
-      <% taskList.forEach((task) => {%>
-      <li><%= task.task %> | <%= task.date.toLocaleDateString('pt-br') %></li>
-      <% }) %>
-    </ul>
+    <section id="tasks">
+      <ul>
+        <% taskList.forEach((task) => {%>
+        <li>
+          <%= task.task %> | <%= task.date.toLocaleDateString('pt-br') %>
+          <a href="/getTaskById/<%= task._id%>"
+            ><i class="ph ph-pencil"></i> Editar</a
+          >
+          <a href=""><i class="ph ph-trash"></i> Deletar</a>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+
     <script src="script.js"></script>
   </body>
 </html>
