@@ -2,8 +2,8 @@ const express = require("express");
 const server = express();
 const port = 3000;
 const dotenv = require("dotenv");
-const mongoDataBase = require("./src/database/connect");
-const Task = require("./src/models/Tarefas.models");
+const mongoDataBase = require("./database/connect");
+const Task = require("./models/Tarefas.models");
 
 dotenv.config();
 mongoDataBase();
