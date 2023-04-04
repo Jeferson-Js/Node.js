@@ -2,12 +2,17 @@ const express = require("express");
 const server = express();
 const port = 3000;
 const dotenv = require("dotenv");
-const mongoDataBase = require("./database/connect");
-const Task = require("./models/Tarefas.models");
+const mongoDataBase = require("./src/database/connect");
+const Task = require("./src/models/Tarefas.models");
 
 dotenv.config();
 mongoDataBase();
 server.use(express.json());
+
+server.get('/', (req, res)=> {
+  res.send('My CRUD')
+})
+
 
 // Rotas do crud
 server.get("/tasks", async (req, res) => {
