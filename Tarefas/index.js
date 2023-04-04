@@ -9,6 +9,11 @@ dotenv.config();
 mongoDataBase();
 server.use(express.json());
 
+server.get('/', (req, res)=> {
+  res.send('My CRUD')
+})
+
+
 // Rotas do crud
 server.get("/tasks", async (req, res) => {
   const tasks = await Task.find();
