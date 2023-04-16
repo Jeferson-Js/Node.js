@@ -31,6 +31,36 @@ const excluirFilme = (id) => {
   }).catch((error) => console.error("Erro ao excluir filme:", error));
 };
 
+const enviarFormulario = (event) => {
+  event.preventDefault();
+
+  const titulo = document.querySelector("#titulo").value;
+  const ano = document.querySelector("#ano").value;
+  const url = document.querySelector("#url").value;
+
+  const novoFilme = {
+    titulo,
+    ano,
+    url,
+  };
+
+  fetch(baseUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(novoFilme),
+  })
+    .then(() => {
+      fetchFilmes();
+      document.getElementById("formulario").reset();
+    })
+    .catch((error) => console.error("Erro ao adicionar filme:", error));
+};
+
 window.addEventListener("load", () => {
   fetchFilmes();
+
+  const form = document.getElementById("formulario");
+  form.addEventListener("submit", enviarFormulario);
 });
